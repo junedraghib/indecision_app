@@ -3,11 +3,14 @@ import AddOption from './AddOption.js'
 import Options from './Options.js'
 import Action from './Action.js'
 import Header from './Header.js'
+import OptionModal from './OptionModal.js'
+import Footer from './Footer.js'
 
 export default class IndecisionApp extends React.Component {
 
     state = {
-        options: []//['Option one', 'Option two', 'Option three']
+        options: [],//['Option one', 'Option two', 'Option three']
+        selectedOption: undefined
     }
 
     // constructor(props) {
@@ -21,6 +24,10 @@ export default class IndecisionApp extends React.Component {
     //         options: props.options//['Option one', 'Option two', 'Option three']
     //     };
     // }
+
+    handleClearSelectedOption = () => {
+        this.setState(() => ({ selectedOption: undefined }))
+    }
 
     handleDeleteOptions = () => {
         // this.setState(() => {
@@ -48,7 +55,9 @@ export default class IndecisionApp extends React.Component {
     handlePick = () => {
         const randomNum = Math.floor(Math.random() * this.state.options.length)
         const option = this.state.options[randomNum]
-        alert(option)
+        this.setState(() => ({
+            selectedOption: option
+        }))
     }
 
     handleAddOption = (option) => {
@@ -99,27 +108,49 @@ export default class IndecisionApp extends React.Component {
     render() {
         const title = "Indecision App"
         const subtitle = "Put your life into the hand of a computer!!"
+        const links = {
+            "github": "https://github.com/junedraghib",
+            "linkedin": "https://www.linkedin.com/in/junedraghib/",
+            "gmail":"mailto://raghibjuned@gmail.com"
+        }
         return (
-            <div>
+            <div className="main">
                 <Header
                     title={title}
                     subtitle={subtitle}
                 />
 
-                <Action
-                    handlePick={this.handlePick}
-                    hasOptions={this.hasOptions}
+                <div className='container'>
+                    <Action
+                        handlePick={this.handlePick}
+                        hasOptions={this.hasOptions}
+                    />
+
+                    <div className='widget'>
+                        <Options
+                            options={this.state.options}
+                            handleDeleteOptions={this.handleDeleteOptions}
+                            handleDeleteOption={this.handleDeleteOption}
+                        />
+
+                        <AddOption
+                            handleAddOption={this.handleAddOption}
+                        />
+                    </div>
+
+                    <OptionModal
+                        selectedOption={this.state.selectedOption}
+                        handleClearSelectedOption={this.handleClearSelectedOption}
+                    />
+
+                </div>
+
+                <Footer
+                    title="Juned Raghib"
+                    subtitle="Designed & Developed by :"
+                    links={links}
                 />
 
-                <Options
-                    options={this.state.options}
-                    handleDeleteOptions={this.handleDeleteOptions}
-                    handleDeleteOption={this.handleDeleteOption}
-                />
-
-                <AddOption
-                    handleAddOption={this.handleAddOption}
-                />
             </div>
         );
     }

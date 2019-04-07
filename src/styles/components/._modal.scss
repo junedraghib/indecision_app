@@ -1,0 +1,41 @@
+//classname is found from the devtool in browser
+.ReactModalPortal > div {
+    opacity: 0;
+} 
+
+.ReactModalPortal .ReactModal__Overlay{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition : opacity 200ms ease-in-out;
+}
+
+//modifier found from the devtool
+.ReactModalPortal .ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
+//this className is passed as custom props to the modal
+.modal{
+    background: $light-blue;
+    color: white;
+    max-width: 30rem;
+    outline:none;
+    padding:2*$m-size;
+    text-align: center;
+}
+
+.modal__title{
+    margin: 0 0 $m-size 0;
+}
+
+.modal__body{
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 0 $m-size 0;
+    word-break: break-all;
+}
